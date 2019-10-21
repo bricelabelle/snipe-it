@@ -71,6 +71,7 @@ return array(
         'success' 		=> 'Asset checked in successfully.',
         'user_does_not_exist' => 'That user is invalid. Please try again.',
         'already_checked_in'  => 'That asset is already checked in.',
+        'location_required'   => 'Asset was not checked in. Please select a location and try again.',
 
     ),
 

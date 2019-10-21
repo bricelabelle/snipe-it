@@ -75,6 +75,8 @@ class AssetCheckinController extends Controller
 
         if ($request->has('location_id')) {
             $asset->location_id =  e($request->get('location_id'));
+        } else {
+            return redirect()->route('hardware.index')->with('error', trans('admin/hardware/message.checkin.location_required'));
         }
 
         // Was the asset updated?
