@@ -76,7 +76,7 @@ class AssetCheckinController extends Controller
         if ($request->has('location_id')) {
             $asset->location_id =  e($request->get('location_id'));
         } else {
-            return redirect()->route('hardware.index')->with('error', trans('admin/hardware/message.checkin.location_required'));
+            return redirect()->route('hardware.show', $asset->id)->with('error', trans('admin/hardware/message.checkin.location_required'));
         }
 
         // Was the asset updated?
@@ -98,9 +98,9 @@ class AssetCheckinController extends Controller
             if ($backto=='user') {
                 return redirect()->route("users.show", $user->id)->with('success', trans('admin/hardware/message.checkin.success'));
             }
-            return redirect()->route("hardware.index")->with('success', trans('admin/hardware/message.checkin.success'));
+            return redirect()->route('hardware.show', $asset->id)->with('success', trans('admin/hardware/message.checkin.success'));
         }
         // Redirect to the asset management page with error
-        return redirect()->route("hardware.index")->with('error', trans('admin/hardware/message.checkin.error'));
+        return redirect()->route('hardware.show', $asset->id)->with('error', trans('admin/hardware/message.checkin.error'));
     }
 }

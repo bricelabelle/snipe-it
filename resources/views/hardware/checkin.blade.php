@@ -66,7 +66,7 @@
             
             <!-- Location -->
             <div class="required">
-            @include ('partials.forms.edit.location-select', ['translated_name' => trans('general.location'), 'fieldname' => 'location_id', 'help_text' => ($asset->defaultLoc) ? 'Update actual checkin location. (Default locations is set to '.$asset->defaultLoc->name.')' : null])
+            @include ('partials.forms.edit.location-select', ['translated_name' => trans('general.location'), 'fieldname' => 'location_id', 'help_text' => ($asset->defaultLoc) ? 'Update actual checkin location. (Default location is set to '.$asset->defaultLoc->name.')' : null])
             </div>
 
             <!-- Checkout/Checkin Date -->
