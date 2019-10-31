@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Http\Requests\AssetCheckinRequest;
 use App\Models\Asset;
+use App\Models\License;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -76,9 +77,12 @@ class AssetCheckinController extends Controller
         if ($request->has('location_id')) {
             $asset->location_id =  e($request->get('location_id'));
         } else {
-            return redirect()->route('hardware.show', $asset->id)->with('error', trans('admin/hardware/message.checkin.location_required'));
+              if ($asset->status_id == 8){
+              return redirect()->route('hardware.show', $asset->id)->with('error', trans('admin/hardware/message.checkin.location_required'));
+              }
         }
 
+       
         // Was the asset updated?
         if ($asset->save()) {
             $logaction = $asset->logCheckin($target, e(request('note')));
@@ -97,6 +101,9 @@ class AssetCheckinController extends Controller
 
             if ($backto=='user') {
                 return redirect()->route("users.show", $user->id)->with('success', trans('admin/hardware/message.checkin.success'));
+            }
+            if ($asset->licenses()->get()->count() > 0){
+               return redirect()->route('hardware.show', $asset->id)->with('error', trans('admin/hardware/message.checkin.license'));
             }
             return redirect()->route('hardware.show', $asset->id)->with('success', trans('admin/hardware/message.checkin.success'));
         }
